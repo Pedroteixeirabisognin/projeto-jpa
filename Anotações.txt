@@ -90,7 +90,7 @@ A id da classe modelo pode causar algum problema, então use @GeneratedValue(str
 Nem todos os bancos suportam @GeneratedValue(strategy = GenerationType.IDENTITY)
 
 
-2.4 - Atualizando valores
+2.4 - Atualizando valores 
 //Classe da conta e Id da conta
 Conta contaDoLeonardo = entityManager.find(Conta.class, 1L);
 
@@ -99,3 +99,14 @@ em.getTransaction().begin();
 contaDoLeonardo.setSaldo(20.0);
 
 em.getTransaction().commit();
+
+2.5 - O estado managed
+
+O hibernate mantém a relação entre o banco de dados
+e o objeto mapeado até que seja utilizado o comando entityManager.close(); o EntityManager morre no processo.
+
+2.7 - O estado detached
+
+Ao usar entityManager.close() o objeto relacional entra no estado detached
+ao qual não alterará o banco de dados se for atualizado. Para torna-lo managed novamente
+você deverá criar um novo EntityManager e usar o comando entityManager.merge(conta).
