@@ -65,3 +65,37 @@ Lembrar que <provider>org.hibernate.jpa.HibernatePersistence</provider> pode cau
 Depois só ir na classe principal, ir em run, java aplication e rodar o projeto.
 Após isso testar o Mysql Client (MariaDb), lembre-se que todos os comandos devem ter um ";" no final para executar a query sql pelo prompt.
 
+2.2 - Inserindo objeto no banco
+
+//Crie um EntityManager
+EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("contas");
+EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+//Crie o objeto
+Conta conta = new Conta();
+conta.setTitular("Leonardo");
+conta.setNumero(1234);
+conta.setAgencia(4321);
+
+//Inicie a transação (É obrigatório)
+entityManager.getTransaction().begin();
+
+//Insira o comando para gravar no banco
+entityManager.persist(conta);
+
+//Encerre a transação (faça o commit)
+entityManager.getTransaction().commit();
+
+A id da classe modelo pode causar algum problema, então use @GeneratedValue(strategy = GenerationType.AUTO)
+Nem todos os bancos suportam @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+2.4 - Atualizando valores
+//Classe da conta e Id da conta
+Conta contaDoLeonardo = entityManager.find(Conta.class, 1L);
+
+em.getTransaction().begin();
+
+contaDoLeonardo.setSaldo(20.0);
+
+em.getTransaction().commit();
