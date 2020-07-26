@@ -1,1 +1,1 @@
-"# projeto-jpa" 
+Revisando JPA de um curso da Alura. 
