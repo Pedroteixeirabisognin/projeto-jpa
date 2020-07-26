@@ -110,3 +110,11 @@ e o objeto mapeado até que seja utilizado o comando entityManager.close(); o En
 Ao usar entityManager.close() o objeto relacional entra no estado detached
 ao qual não alterará o banco de dados se for atualizado. Para torna-lo managed novamente
 você deverá criar um novo EntityManager e usar o comando entityManager.merge(conta).
+O comando merge, seleciona primeiro o dado e depois efetua o update. 
+
+2.9 - O estado removed
+
+Uma entidade sem entity manager e sem id é chamada de transient.
+No momento que você chama o método persist para ela, você torna ela managed
+e se o banco notar que não existe essa entidade lá ele cria e sincroniza.
+No momento que você chama o método remove você muda o estado dela para removed.
