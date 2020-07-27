@@ -118,3 +118,47 @@ Uma entidade sem entity manager e sem id é chamada de transient.
 No momento que você chama o método persist para ela, você torna ela managed
 e se o banco notar que não existe essa entidade lá ele cria e sincroniza.
 No momento que você chama o método remove você muda o estado dela para removed.
+
+3.2 - Criando a movimentação
+
+Enum torna os tipos mais expressivos, o qual é fixado para podermos
+estabelecer que um atributo só poderá ter um conjunto específico de valores.
+
+public enum TipoMovimentacao {
+ENTRADA, SAIDA;
+}
+
+Para declarar que um enum deve ser salvo no banco como string
+@Enumerated(EnumType.STRING)
+private TipoMovimentacao tipoMovimentacao;
+
+
+3.4 - Relacionamento Muitos para Um
+
+Você utiliza a anotação @ManyToOne para indicar que essa entidade (movimentacao)
+irá se relacionar de várias formas com uma entidade (conta). 
+@Entity
+public class Movimentacao {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private TipoMovimentacao tipoMovimentacao;
+    private LocalDateTime data;
+    private String descricao;
+    private BigDecimal valor;
+    @ManyToOne
+    private Conta conta;
+
+    //Getters e Setters dos atributos privados omitidos
+}
+
+Sempre deve ser adicionado a classe relacionada a entidade jpa ao persistence.xml
+Ex:
+    <persistence-unit name="alura">
+    
+    <class>br.com.alura.jpa.modelo.Conta</class>
+    <class>br.com.alura.jpa.modelo.Movimentacao</class>
+    
