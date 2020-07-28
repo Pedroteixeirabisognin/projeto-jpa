@@ -162,3 +162,7 @@ Ex:
     <class>br.com.alura.jpa.modelo.Conta</class>
     <class>br.com.alura.jpa.modelo.Movimentacao</class>
     
+4.2 - Associando categorias as movimentações 
+@OneToMany é usado para especificar que a entidade tem várias relações com outra.
+@ManyToMany é usado para especificar que as entidades tem multiplas relações entre sí
+
