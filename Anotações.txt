@@ -210,3 +210,31 @@ Usando relacionamento com outra entidade:
 
 De fato, JPQL é feita para abstrair o mundo relacional, 
 permitindo com que os desenvolvedores se preocupem apenas com objetos.
+
+
+5.4 - Queries com Order by desc
+
+        String sql = "select m from Movimentacao m where m.conta = :pConta order by m.valor desc";
+
+Na linha da lista, o getResultList() apresenta um warning do compilador 
+indicando que o casting feito entre List<> e Movimentacao não é checado; 
+afinal, só é possível saber o tipo e conteúdo da lista quando executarmos o código.
+
+Para evitar este erro, é comum colocarmos um tipo de query mais específica chamado TypedQuery<>,
+o qual é geralmente tipado com o que foi trazido na query, 
+e neste caso é a Movimentacao.
+
+
+        String sql = "select m from Movimentacao m where m.conta = :pConta order by m.valor desc";
+
+        Conta conta = new Conta();
+        conta.setId(2L);
+        TypedQuery<Movimentacao> query = em.createQuery(sql, Movimentacao.class);
+        query.setParameter("pConta", conta);
+
+        List<Movimentacao> movimentacoes = query.getResultList();
+        for (Movimentacao movimentacao : movimentacoes) {
+            System.out.println("Descrição: " + movimentacao.getDescricao());
+            System.out.println("Valor: " + movimentacao.getValor());
+            System.out.println("Tipo: " + movimentacao.getTipoMovimentacao());
+        }
