@@ -186,3 +186,27 @@ você precisa usar:
 A anotação @JoinColumn só funciona na criação do schema, portanto é necessário
 deletar o banco e criá-lo novamente. E se não estiver criando,
 tente mudar o dialect para por exemplo MySQL5Dialect.
+
+5.2 - Queries orientadas a objetos
+
+Uma query normal para trazer um elemento sql:
+        String query = "select * from movimentacao where conta_id =2";
+Uma query jpql para trazer um objeto query:
+
+        String jpql = "select m from Movimentacao m where m.conta.id =2";
+        Query query = em.createQuery(jpql);
+        List<Movimentacao> resultList = query.getResultList();
+
+Usando relacionamento com outra entidade:
+	
+	Conta conta = new Conta();
+        conta.setId(2L);
+	//Esse p na frente de conta é uma convenção
+        String jpql = "select m from Movimentacao m where m.conta = :pConta";
+
+        Query query = em.createQuery(jpql)
+        query.setParameter("pConta", conta);
+        List<Movimentacao> resultList = query.getResultList();
+
+De fato, JPQL é feita para abstrair o mundo relacional, 
+permitindo com que os desenvolvedores se preocupem apenas com objetos.
