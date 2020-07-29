@@ -275,3 +275,12 @@ Inserimos ele dentro da TypedQuery no lugar de :pCategoria
 
 Usamos List<Movimentacao> movimentacoes = query.getResultList();
 para retornar os resultados.
+
+
+Outro exemplo de uso:
+
+Categoria viagem = ...
+Query query = 
+    em.createQuery("select m from Movimentacao m join m.categoria c where c = :pCategoria and m.valor > 500 and m.tipoMovimentacao = :pTipoMovimentacao");
+query.setParameter("pCategoria", viagem);
+query.setParameter("pTipoMovimentacao", TipoMovimentacao.SAIDA);
