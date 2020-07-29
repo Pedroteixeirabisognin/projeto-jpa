@@ -12,13 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Movimentacao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
@@ -28,10 +27,18 @@ public class Movimentacao {
 	private BigDecimal valor;
 
 	@ManyToMany
-	private List<Categoria> categoria;
+	private List<Categoria> categorias;
 
 	@ManyToOne
 	private Conta conta;
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
 
 	public Long getId() {
 		return id;

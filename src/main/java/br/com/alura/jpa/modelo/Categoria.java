@@ -9,8 +9,20 @@ import javax.persistence.Id;
 public class Categoria {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String nome;
+
+	@Deprecated
+	public Categoria() {
+		
+	}
+
+	
+	public Categoria(String nome) {
+		super();
+		this.nome = nome;
+	}
 
 	public Long getId() {
 		return id;
@@ -28,6 +40,5 @@ public class Categoria {
 		this.nome = nome;
 	}
 
-	private String nome;
-	
+
 }

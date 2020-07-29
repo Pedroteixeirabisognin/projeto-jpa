@@ -34,7 +34,7 @@ public class Conta {
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="" />
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
             
 	    <!-- OPÇÃO PARA VER ATUALIZAÇÕES NO BANCO -->
 	    <property name="hibernate.show_sql" value="true" />
@@ -165,4 +165,24 @@ Ex:
 4.2 - Associando categorias as movimentações 
 @OneToMany é usado para especificar que a entidade tem várias relações com outra.
 @ManyToMany é usado para especificar que as entidades tem multiplas relações entre sí
+@OneToOne é usado para especificar que a entidade só pode possuir uma única relação com a outra.
 
+Tabelas de relacionamento são criadas em relacionamentos @*ToMany.
+Chaves estrangeiras são criadas em relacionamentos @*ToOne.
+
+As relações darão problema na hora de persistir se algum objeto for transient.
+Você vai precisar dar um persist nele antes.
+
+
+4.7 - Relacionamento OneToOne
+
+Para você definir que um relacionamento OneToOne só pode ter uma relação entre as entidades
+você precisa usar:
+
+    @JoinColumn(unique = true)
+    @OneToOne
+    private Conta conta;
+
+A anotação @JoinColumn só funciona na criação do schema, portanto é necessário
+deletar o banco e criá-lo novamente. E se não estiver criando,
+tente mudar o dialect para por exemplo MySQL5Dialect.

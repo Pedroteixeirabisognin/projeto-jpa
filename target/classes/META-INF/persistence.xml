@@ -7,6 +7,9 @@
 	<persistence-unit name="contas">
 		<class>br.com.alura.jpa.modelo.Conta</class>
 		<class>br.com.alura.jpa.modelo.Movimentacao</class>
+		<class>br.com.alura.jpa.modelo.Cliente</class>
+		<class>br.com.alura.jpa.modelo.Categoria</class>
+
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
@@ -17,7 +20,7 @@
 			<property name="javax.persistence.jdbc.password" value="" />
 
 			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+				value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 
